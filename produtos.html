@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}Produtos | Almoxarifado{% endblock %}{% block heading %}Produtos{% endblock %}{% block content %}
+<div class="section"><div><h3>Cadastro de produtos</h3><p>Adicione e consulte materiais do almoxarifado.</p></div></div>
+<div class="panel formpanel"><h3>Novo produto</h3><form method="post" class="grid">
+<label>Código<input name="codigo" required placeholder="MAT-001"></label><label>Nome<input name="nome" required placeholder="Ex.: Parafuso sextavado"></label>
+<label>Categoria<input name="categoria" placeholder="Fixadores"></label><label>Unidade<select name="unidade"><option>UN</option><option>KG</option><option>LT</option><option>M</option><option>CX</option><option>PCT</option></select></label>
+<label>Quantidade inicial<input type="number" min="0" name="quantidade" value="0" required></label><label>Estoque mínimo<input type="number" min="0" name="minimo" value="0" required></label>
+<button class="btn">Cadastrar produto</button></form></div>
+<div class="section"><div><h3>Lista de materiais</h3><p>{{produtos|length}} produto(s) encontrado(s)</p></div><form class="search"><input name="q" value="{{q}}" placeholder="Buscar código ou produto"><button class="btn pale">Buscar</button></form></div>
+<div class="panel"><table><tr><th>CÓDIGO</th><th>PRODUTO</th><th>CATEGORIA</th><th>SALDO</th><th>MÍNIMO</th><th>STATUS</th><th></th></tr>
+{% for p in produtos %}<tr><td>{{p.codigo}}</td><td><b>{{p.nome}}</b></td><td>{{p.categoria or "—"}}</td><td>{{p.quantidade}} {{p.unidade}}</td><td>{{p.minimo}}</td><td>{% if p.quantidade<=p.minimo %}<i class="warn">Baixo</i>{% else %}<i class="good">Normal</i>{% endif %}</td><td><form method="post" action="/excluir/{{p.id}}" onsubmit="return confirm('Excluir produto?')"><button class="delete">×</button></form></td></tr>{% else %}<tr><td colspan="7" class="empty">Nenhum produto encontrado.</td></tr>{% endfor %}</table></div>
+{% endblock %}

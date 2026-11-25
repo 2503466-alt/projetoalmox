@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Painel | Almoxarifado Fácil{% endblock %}{% block content %}
+<section class="hero"><small>PAINEL DO ALMOXARIFADO</small><h2>Controle seus materiais<br>de forma simples.</h2><p>Acompanhe produtos, saldos e movimentações em um só lugar.</p></section>
+<section class="stats"><article><small>Produtos cadastrados</small><strong>{{nprod}}</strong></article><article><small>Unidades em estoque</small><strong>{{nun}}</strong></article><article><small>Itens no mínimo ou abaixo</small><strong>{{baixo}}</strong></article></section>
+<div class="section"><div><h3>Produtos cadastrados</h3><p>Resumo dos materiais registrados</p></div><a class="btn" href="/produtos">+ Novo produto</a></div>
+<div class="panel"><table><tr><th>CÓDIGO</th><th>PRODUTO</th><th>CATEGORIA</th><th>SALDO</th><th>STATUS</th></tr>
+{% for p in produtos %}<tr><td>{{p.codigo}}</td><td><b>{{p.nome}}</b></td><td>{{p.categoria or "—"}}</td><td>{{p.quantidade}} {{p.unidade}}</td><td>{% if p.quantidade<=p.minimo %}<i class="warn">Estoque baixo</i>{% else %}<i class="good">Disponível</i>{% endif %}</td></tr>{% else %}<tr><td colspan="5" class="empty">Nenhum produto cadastrado ainda.</td></tr>{% endfor %}</table></div>
+<div class="section"><div><h3>Movimentações recentes</h3><p>Últimas operações registradas</p></div><a href="/movimentos">Ver histórico →</a></div>
+<div class="panel"><table><tr><th>DATA</th><th>PRODUTO</th><th>TIPO</th><th>QUANTIDADE</th></tr>{% for m in movs %}<tr><td>{{m.data}}</td><td>{{m.produto}}</td><td>{{m.tipo}}</td><td>{{m.quantidade}}</td></tr>{% else %}<tr><td colspan="4" class="empty">Nenhuma movimentação realizada.</td></tr>{% endfor %}</table></div>
+{% endblock %}

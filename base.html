@@ -1,0 +1,8 @@
+<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}Almoxarifado Fácil{% endblock %}</title><link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"></head>
+<body><aside><div class="logo">▦ <span>Almoxarifado<small>CONTROLE DE ESTOQUE</small></span></div>
+<nav><a href="/">▣ &nbsp; Visão geral</a><a href="/produtos">▤ &nbsp; Produtos</a><a href="/movimentos">⇄ &nbsp; Movimentações</a></nav>
+<div class="sidefoot">Projeto acadêmico<br><b>Desenvolvido em Python</b></div></aside>
+<main><header><div><small>GESTÃO DE MATERIAIS</small><h1>{% block heading %}Visão geral{% endblock %}</h1></div><a class="btn pale" href="/estoque.csv">↓ Exportar estoque</a></header>
+{% with msgs=get_flashed_messages(with_categories=true) %}{% for kind,msg in msgs %}<div class="alert {{kind}}">{{msg}}</div>{% endfor %}{% endwith %}
+{% block content %}{% endblock %}<footer>Almoxarifado Fácil · Python + Flask + SQLite</footer></main></body></html>
